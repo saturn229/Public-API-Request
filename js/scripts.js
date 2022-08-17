@@ -1,15 +1,12 @@
-const randomUrl = 'https://randomuser.me/api/?results=12&nat=us$';
-var gallery = document.querySelector("#gallery"),
-users = [];
-const numUsers = 12;
+const randomUrl = 'https://randomuser.me/api/?results=12&nat=us';
+var gallery = document.querySelector("#gallery");
+
 
 init();
 
 
-async function main(){
-    for(let i = 0; i < numUsers; i++){
-        users.push(await fetchUser());
-    }
+async function main(users){
+
 
     users.forEach(user => {
         const pic = user.picture.large
@@ -57,15 +54,16 @@ async function main(){
         });
     });
 
-} main();
+}
 
 
 function fetchUser(){
     return fetch(randomUrl)
             .then(response => response.json())
-            .then(data => data.results[0])
+            .then(data => main(data.results))
             .catch(error => console.error(error));
 };
+fetchUser()
 
 function init() {
     insertModalContainer();
@@ -90,4 +88,3 @@ function insertModalContainer() {
             </div>
     </div>`;
     document.querySelector("#gallery").insertAdjacentHTML("afterend", html);
-};
