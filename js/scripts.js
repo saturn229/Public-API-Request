@@ -88,3 +88,4 @@ function insertModalContainer() {
             </div>
     </div>`;
     document.querySelector("#gallery").insertAdjacentHTML("afterend", html);
+}
